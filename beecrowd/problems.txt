@@ -5,7 +5,7 @@ x 1241 - Encaixa ou Não II (string)
 x 1253 - Cifra de Cesar (string)
 x 1168 - Led (string)
 1257 - Array Hash (string)
-1276 - Faixa de Letras
+x 1276 - Faixa de Letras
 1069 - Diamantes e Areia (estruturas)
 1379 - Media e Mediana (adhoc)
 

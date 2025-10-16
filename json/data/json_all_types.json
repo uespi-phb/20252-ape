@@ -1,0 +1,65 @@
+{
+  "object_example": {
+    "name": "Universidade Estadual do Piauí",
+    "year": 2025,
+    "active": true,
+    "metadata": null
+  },
+  "array_example": [
+    1,
+    2.5,
+    "texto",
+    false,
+    null
+  ],
+  "string_examples": {
+    "ascii": "hello world",
+    "unicode": "olá, mundo — ç, ã, é, ñ, Ω",
+    "escaped": "linha 1\nlinha 2\t(tab)\t\"aspas\"\\barra"
+  },
+  "number_examples": {
+    "integer": 42,
+    "negative_integer": -17,
+    "float": 3.14159,
+    "scientific_notation": 6.022e+23
+  },
+  "boolean_examples": {
+    "true_value": true,
+    "false_value": false
+  },
+  "null_example": null,
+  "empty_object": {},
+  "empty_array": [],
+  "nested_object": {
+    "campus": {
+      "city": "Parnaíba",
+      "courses": [
+        {
+          "code": "TSC",
+          "credits": 2000
+        },
+        {
+          "code": "BCC",
+          "credits": 3200
+        }
+      ]
+    }
+  },
+  "nested_array_mixed": [
+    {
+      "id": 1,
+      "tags": [
+        "python",
+        "json"
+      ]
+    },
+    [
+      10,
+      20,
+      {
+        "info": "nested"
+      }
+    ],
+    "end"
+  ]
+}

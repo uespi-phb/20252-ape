@@ -1,0 +1,33 @@
+{
+  "person": {
+    "name": "Fulano de Tal",
+    "age": 36,
+    "address": {
+      "city": "Parnaíba",
+      "state": "Piauí",
+      "geo": {
+        "lat": -2.905,
+        "lon": -41.775
+      }
+    }
+  },
+  "university": {
+    "name": "UESPI",
+    "departments": [
+      {
+        "name": "Computação",
+        "courses": [
+          "TSC",
+          "BCC"
+        ]
+      },
+      {
+        "name": "Educação",
+        "courses": [
+          "Letras",
+          "Pedagogia"
+        ]
+      }
+    ]
+  }
+}

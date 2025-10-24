@@ -60,9 +60,9 @@ def main():
             case '2':
                 student_add(students)
             case '3':
-                student_del()
+                student_del(students)
             case '4':
-                student_search()
+                student_search(students)
             case '0':
                 break
         
@@ -79,6 +79,6 @@ def main():
 
     data_save(students, json_file)
 
-
+# This module, is the application entry point?
 if __name__ == '__main__':
     main()

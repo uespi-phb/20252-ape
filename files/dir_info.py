@@ -20,6 +20,7 @@ def main():
         exit(ERR_DIR_NOT_EXISTS)
 
     dir_entries = os.listdir(dir_name)
+    name_size = len(max(dir_entries, key=len))
     for entry_name in dir_entries:
         entry_path = f'{dir_name}/{entry_name}'
         entry_size = os.path.getsize(entry_path)
@@ -29,7 +30,8 @@ def main():
         if os.path.isdir(entry_path):
             entry_name += '/'
         
-        print(f'{entry_name:<20} {entry_size:>8} {entry_date}')
+        print(f'{entry_name:<{name_size}} {entry_size:>8} {entry_date}')
+
 
 if __name__ == '__main__':
     main()

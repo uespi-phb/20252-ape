@@ -1,55 +1,82 @@
 
+import re
+
 class Rational:
     def __init__(self, num, den=None):       
-        if isinstance(num, int):
-           if den is None:
-               den = 1
 
-           if not isinstance(den, int):
-               raise TypeError('Denominator must be integer')
-        elif isinstance(num, str):
-            values = num.split('/')
-            if len(values) != 2:
-                raise ValueError('Rational string format is invalid')
-            if values[0].isdigit() and values[1].isdigit():
-                num = int(values[0])
-                den = int(values[1])
-            else:
-                raise ValueError('Rational string format is invalid')                
+        if isinstance(num, str):
+            if den is not None:
+                raise TypeError('Rational string must be alone')
+            
+            pattern = r'^[-+]?\d+/[-+]?\d+$'
+            if re.match(pattern, num) is None:
+                raise ValueError(f'Rational string is invalid: "{num}"')
+            
+            num, den = map(int, num.split('/'))
+            
+        elif isinstance(num, int):
+            if den is None:
+                den = 1
+            elif not isinstance(den, int):
+                raise TypeError(f'Denominator must be an integer: {den}')
         else:
-            raise TypeError('Numerator must be integer')
+            raise TypeError(f'Numerator and denominator must be integers: {num}, {den}')    
+        
+        if den == 0:
+            raise ValueError('Denominator cannot be zero')
         
         self.num = num
         self.den = den
+
+
+    def __repr__(self):
+        return f'Rational({self.num},{self.den})'
 
 
     def __str__(self):
         return f'{self.num}/{self.den}'
         
 
-    def add(self, r):
+    def __add__(self, r):
+        r = self.validate(r)            
+        
         num = self.num*r.den + r.num*self.den
         den = self.den*r.den
         return Rational(num, den).simplify()
 
 
-    def sub(self, r):
+    def __sub__(self, r):
+        r = self.validate(r)            
+
         num = self.num*r.den - r.num*self.den
         den = self.den*r.den
         return Rational(num, den).simplify()
 
 
-    def mul(self, r):
+    def __mul__(self, r):
+        r = self.validate(r)            
+
         num = self.num*r.num
         den = self.den*r.den
         return Rational(num, den).simplify()
 
 
-    def div(self, r):
+    def __truediv__(self, r):
+        r = self.validate(r)            
+
         num = self.num*r.den
         den = self.den*r.num
         return Rational(num, den).simplify()
 
+    def validate(self, r):
+        if not isinstance(r, (int, Rational)):
+            raise TypeError('Right operand must be Rational or int')
+        
+        if isinstance(r, int):
+            r = Rational(r)
+        
+        return r
+        
 
     def simplify(self):
         num = self.num
@@ -65,6 +92,7 @@ class Rational:
             
         return Rational(num, den)
 
-        
-    def show(self):
-        print(f'{self.num}/{self.den}')
+
+
+r1 = Rational(-1,4)
+r2 = Rational(3,7)

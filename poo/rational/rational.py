@@ -25,50 +25,88 @@ class Rational:
         if den == 0:
             raise ValueError('Denominator cannot be zero')
         
-        self.num = num
-        self.den = den
-
+        if den < 0:
+            num = -num
+            den = -den
+        
+        self.__num = num
+        self.__den = den
+                
+        self.__simplify()
+        
 
     def __repr__(self):
-        return f'Rational({self.num},{self.den})'
+        return f'Rational({self.__num},{self.__den})'
 
 
     def __str__(self):
-        return f'{self.num}/{self.den}'
+        return f'{self.__num}/{self.__den}'
         
 
     def __add__(self, r):
-        r = self.validate(r)            
+        r = self.__validate(r)            
         
-        num = self.num*r.den + r.num*self.den
-        den = self.den*r.den
-        return Rational(num, den).simplify()
+        num = self.__num*r.__den + r.__num*self.__den
+        den = self.__den*r.__den
+        return Rational(num, den)
 
+    
+    def __radd__(self, r):
+        r = self.__validate(r)            
+        return r + self
+        
 
     def __sub__(self, r):
-        r = self.validate(r)            
+        r = self.__validate(r)            
 
-        num = self.num*r.den - r.num*self.den
-        den = self.den*r.den
-        return Rational(num, den).simplify()
+        num = self.__num*r.__den - r.__num*self.__den
+        den = self.__den*r.__den
+        return Rational(num, den)
+
+
+    def __rsub__(self, r):
+        r = self.__validate(r)            
+        return r + self
 
 
     def __mul__(self, r):
-        r = self.validate(r)            
+        r = self.__validate(r)            
 
-        num = self.num*r.num
-        den = self.den*r.den
-        return Rational(num, den).simplify()
+        num = self.__num*r.__num
+        den = self.__den*r.__den
+        return Rational(num, den)
+
+
+    def __rmul__(self, r):
+        r = self.__validate(r)            
+        return r * self
 
 
     def __truediv__(self, r):
-        r = self.validate(r)            
+        r = self.__validate(r)            
 
-        num = self.num*r.den
-        den = self.den*r.num
-        return Rational(num, den).simplify()
+        num = self.__num*r.__den
+        den = self.__den*r.__num
+        return Rational(num, den)
 
-    def validate(self, r):
+
+    def __rtruediv__(self, r):
+        r = self.__validate(r)            
+        return r / self
+    
+
+    def __pow__(self, power):
+        if not isinstance(power, (int, float)):
+            raise TypeError('Power value must be int or float')
+        
+        return Rational(self.__num ** power, self.__den ** power)
+
+
+    def __neg__(self):
+        return Rational(-self.__num, self.__den)
+
+
+    def __validate(self, r):
         if not isinstance(r, (int, Rational)):
             raise TypeError('Right operand must be Rational or int')
         
@@ -78,9 +116,9 @@ class Rational:
         return r
         
 
-    def simplify(self):
-        num = self.num
-        den = self.den
+    def __simplify(self):
+        num = self.__num
+        den = self.__den
         
         div = 2
         while div <= min(abs(num), abs(den)):
@@ -90,9 +128,14 @@ class Rational:
             else:
                 div += 1
             
-        return Rational(num, den)
+        self.__num = num
+        self.__den = den
+        
+    
+    def num(self):
+        return self.__num
+    
+    
+    def den(self):
+        return self.__den
 
-
-
-r1 = Rational(-1,4)
-r2 = Rational(3,7)

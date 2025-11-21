@@ -19,6 +19,10 @@ def main():
         
     my_lib.report_books()
     
+    print('-'*80)
+    for book in my_lib:
+        print(book)
+    
 
 if __name__ == '__main__':
     main()

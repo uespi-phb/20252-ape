@@ -15,7 +15,7 @@ class Book:
     def __str__(self):
         return f'Book({self.__id},{self.__title},{self.__year})'
     
-    
+       
     def __getitem__(self, field):
         match field:
             case 'id':

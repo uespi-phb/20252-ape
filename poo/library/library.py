@@ -7,6 +7,22 @@ class Library:
     def __init__(self, name):
         self.__name = name
         self.__collection = []
+        self.__index = None
+    
+    
+    def __iter__(self):
+        return self
+    
+    
+    def __next__(self):
+        if self.__index is None:
+            self.__index = -1
+        
+        if self.__index == len(self.__collection) - 1:
+            raise StopIteration()
+        
+        self.__index += 1
+        return self.__collection[self.__index]
     
     
     def add_book(self, book):
@@ -17,12 +33,29 @@ class Library:
         
         
     def remove_book(self, key, field='id'):
-        pass
+        index, _ = self.__get_book(key, field)
+        del self.__collection[index]
 
 
     def find_book(self, key, field='id'):
-        pass
+        _, book = self.__get_book(key, field)
+        return book
 
+
+    def find_by_author(self, author):
+        return self.find_book(author, 'author')
+
+
+    def find_by_title(self, title):
+        return self.find_book(title, 'title')
+
+
+    def __get_book(self, key, field='id'):
+        for index, book in enumerate(self.__collection):
+            if book[field] == key:
+                return (index, book)
+        raise ValueError('Book not found')
+    
     
     def __get_max_len(self, column):
         field = column['field']
